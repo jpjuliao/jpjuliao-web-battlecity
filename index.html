@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,400&family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <!-- load google icons -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet" />
+    <title>Software Development Solutions</title>
+    <style>
+      body {
+        background-color: #000;
+        font-family: "Press Start 2P", cursive;
+        text-transform: uppercase;
+      }
+      h1 {
+        font-size: 1.75rem;
+        line-height: 1.5;
+        text-align: center;
+        margin-top: 2rem;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-image: url("./images/brick-red-32x32.png");
+        background-size: 16px;
+        text-transform: uppercase;
+      }
+      @media (min-width: 480px) {
+        h1 {
+          font-size: 2rem;
+        }
+      }
+      @media (min-width: 768px) {
+        h1 {
+          font-size: 4rem;
+        }
+      }
+      p {
+        color: #fff;
+        text-align: center;
+      }
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      nav {
+        text-align: center;
+        line-height: 2;
+        margin-top: 2rem;
+      }
+      nav a {
+        color: #fff;
+        text-decoration: none;
+        margin: 1rem;
+      }
+      footer {
+        margin: 3rem 0 0;
+        position: relative;
+        min-height: 250px;
+      }
+      @media (min-width: 768px) {
+        footer {
+          min-height: 200px;
+        }
+      }
+      .title {
+        padding: 1rem;
+      }
+      .container {
+        background: #000;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .no-scroll {
+        overflow: hidden;
+      }
+      .game__wrapper {
+        margin: auto;
+        /*width:640px;
+        height:480px;
+        max-width:100%;*/
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index:-1;
+        visibility: hidden;
+      }
+      .game__wrapper.active {
+        z-index: 1;
+        visibility: visible;
+      }
+      /* link with active class should should a brick in a pseudo element */
+      nav a {
+        position: relative;
+      }
+      nav .active a::after { 
+        content: "";
+        position: absolute;
+        bottom:0;
+        left: -2rem;
+        width: 1rem;
+        height: 1rem;
+        background-image: url("./images/sprites/NES - Battle City JPN - General Sprites.png");
+        background-position: -6rem 0;
+        transform: scale(2);
+      }
+      /* Place close button in the top right and color white */
+      .game__close {
+        position: absolute;
+        top: 0;
+        right: 3rem;
+        color: #fff;
+        padding: 1rem;
+        font-size: 1rem;
+        text-decoration: none;
+      }
+      @media (min-width: 768px) {
+        .game__close {
+          right: 0;
+        }
+      }
+      .decoration-left {
+        display: block;
+        height: 150px;
+        width: 150px;
+        background-image: url("./images/battle-city-footer.png");  
+        background-size: cover;
+        background-position: left bottom;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+      }
+      .decoration-center {
+        display: block;
+        height: 150px;
+        width: 150px;
+        background-image: url("./images/battle-city-footer.png");  
+        background-size: cover;
+        background-position: center bottom;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 0;
+      }
+      .decoration-right {
+        display: block;
+        height: 150px;
+        width: 150px;
+        background-image: url("./images/battle-city-footer.png");  
+        background-size: cover;
+        background-position: right bottom;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+      }
+      .copyright {
+        position: relative;
+        padding: 0 1rem;
+        font-size: 0.75rem;
+      }
+      @media (min-width: 768px) {
+        .copyright {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="title">
+        <h1>Software Development Solutions</h1>
+        <p>by Juan Pablo Juliao</p>
+      </div>
+
+      <nav>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/jpjuliao/" target="_blank">About</a></li>
+          <li><a href="https://github.com/jpjuliao/" target="_blank">Projects</a></li>
+          <li class="active"><a class="js-play" href="#">Play</a></li>
+        </ul>
+      </nav>
+
+      <footer>
+        <div class="decoration-left"></div> 
+        <div class="decoration-right"></div> 
+        <div class="decoration-center"></div> 
+        <div class="copyright">
+          <p>&copy; 2021. ALL RIGHTS RESERVED</p>
+        </div>
+      </footer>
+    </div>
+      
+    <div class="game__wrapper">
+      <div id='game'></div>
+      <a href="#" class="game__close">
+        <i class="material-icons">close</i>
+      </a>
+    </div>
+
+    <script type='text/javascript'>
+      EJS_player = '#game';
+      
+      // Can also be fceumm or nestopia
+      EJS_core = 'nes';
+      
+      // Lightgun
+      EJS_lightgun = false; // can be true or false
+
+      // EmulatorJS ready function
+      EJS_ready = function() {
+        console.log("The emulator is ready!");
+      }
+
+      // EmulatorJS fullscreen on load
+      EJS_fullscreenOnLoad = false; 
+
+      // EmulatorJS start function
+      EJS_startOnLoaded = true;
+
+      // EmulatorJS start function
+      EJS_loadStateURL = '/states/';
+
+      // EmulatorJS buttons
+      EJS_Buttons = {
+          playPause: false,
+          restart: false,
+          mute: false,
+          settings: false,
+          fullscreen: false,
+          saveState: false,
+          loadState: false,
+          screenRecord: false,
+          gamepad: false,
+          cheat: false,
+          volume: true,
+          saveSavFiles: false,
+          loadSavFiles: false,
+          quickSave: false,
+          quickLoad: false,
+          screenshot: false,
+          cacheManager: false
+      }
+      
+      // URL to BIOS file
+      EJS_biosUrl = 'FamicomDiskSystemBIOS.rar'; // example: https://dl.dropboxusercontent.com/s/[random-code]/bios.bin
+      
+      // URL to Game rom
+      EJS_gameUrl = 'roms/Battle City (J) [p1].nes'; // example: https://dl.dropboxusercontent.com/s/[random-code]/mario.nes
+      
+      // Path to the data directory
+      EJS_pathtodata = 'EmulatorJS/data/';
+
+      // ----------------------
+
+      // Click on .js-play to change the z-index of the game wrapper
+      // and restart the game
+      document.querySelector('.js-play').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector('.game__wrapper').classList.add('active');
+        document.body.classList.add('no-scroll');
+        // EJS_restart();
+      });
+
+      // Close button to change the z-index of the game wrapper
+      document.querySelector('.game__close').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector('.game__wrapper').classList.remove('active');
+        document.body.classList.remove('no-scroll');
+        // Stop the game
+        // EJS_stop();
+      });
+
+      // Add class active to nav links on hover and remove on the others
+      document.querySelectorAll('nav li').forEach(function(link) {
+        link.addEventListener('mouseover', function(e) {
+          e.preventDefault();
+          document.querySelectorAll('nav li').forEach(function(link) {
+            link.classList.remove('active');
+          });
+          this.classList.add('active');
+        });
+      });
+    </script>
+    <script src='./EmulatorJS/data/loader.js'></script>
+  </body>
+</html>
