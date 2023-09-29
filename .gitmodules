@@ -1,0 +1,3 @@
+[submodule "EmulatorJS"] 
+  path = EmulatorJS 
+  url = git://https://EmulatorJS/EmulatorJS.git
